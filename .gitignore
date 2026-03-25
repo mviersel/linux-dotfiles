@@ -1,1 +1,3 @@
 linux-dotfiles\bash\.config\bash\spotdl.bsh
+.config/bash/spotdl.local.bsh
+bash/.config/bash/spotdl.bsh
