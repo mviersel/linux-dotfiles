@@ -72,7 +72,7 @@ fi
 log "✅ Installatie van packages-core, packages-gui en Flatpak apps voltooid."
 # Flatpak apps
 if [ -f "$DOTFILES/flatpaks.txt" ]; then
-  if ! command -v flatpak &> /dev/null; then
+  if ! command -v flatpak &>/dev/null; then
     sudo apt install -y flatpak
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   fi
@@ -83,4 +83,3 @@ if [ -f "$DOTFILES/packages.txt" ]; then
   sudo apt update
   xargs -a "$DOTFILES/packages.txt" sudo apt install -y
 fi
-
