@@ -8,6 +8,7 @@ fi
 source ~/.config/zsh/ytloader.zsh
 source ~/.config/zsh/alias.zsh
 source ~/.config/zsh/functions.zsh
+source ~/.config/zsh/git.sh
 
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
