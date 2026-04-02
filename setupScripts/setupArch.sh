@@ -9,6 +9,7 @@ PACMAN_PACKAGES=(
   yay
   neovim
   git
+  rofi
 )
 
 # Voeg hier je yay (AUR) packages toe
