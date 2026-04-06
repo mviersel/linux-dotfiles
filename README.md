@@ -1,5 +1,13 @@
 # Automatische installer maken (install.sh)
 
+Starting a new system?
+- Arch 
+Look for [packages](https://archlinux.org/packages/?sort=&q=rofi&maintainer=&flagged=)
+- Ubuntu
+- Fedora
+
+
+
 Op een nieuwe machine:
 ```
 git clone git@github.com:mviersel/linux-dotfiles.git ~/.dotfiles
