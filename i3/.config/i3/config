@@ -43,7 +43,7 @@ exec_always --no-startup-id xrandr --output DP-2 --mode 2560x1440 --rate 144 --p
 exec --no-startup-id feh --bg-scale ~/wallpaper.jpg
 
 # with `xinput` you can find all the connected mice
-exec_always --no-startup-id xinput --set-prop "Endgame Gear Endgame Gear OP1 8k Gaming Mouse" "libinput Accel Profile Enabled" 0, 1
+exec_always --no-startup-id xinput --set-prop "Endgame Gear Endgame Gear OP1 8k Gaming Mouse" "libinput Accel Profile Enabled" 0.3, 1
 exec_always --no-startup-id xinput --set-prop "Endgame Gear Endgame Gear OP1 8k Gaming Mouse" "libinput Accel Speed" 0
 
 # Use pactl to adjust volume in PulseAudio.
@@ -71,7 +71,8 @@ bindsym $mod+Shift+x exec ~/.config/i3/lock.sh
 bindsym $mod+B exec ddcui
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+# bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id rofi -show drun
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
