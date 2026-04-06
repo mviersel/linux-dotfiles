@@ -5,6 +5,7 @@ source ~/.config/bash/alias.bsh
 source ~/.config/bash/functions.bsh
 source ~/.config/bash/wsl.bsh
 source ~/.config/bash/spotdl.bsh.local
+source $HOME/.cargo/env
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -18,3 +19,4 @@ cl() {
 }
 
 fastfetch
+. "$HOME/.cargo/env"
