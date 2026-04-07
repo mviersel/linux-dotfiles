@@ -1,4 +1,0 @@
-sed -i 's/\r$//' ~/.bashrc
-sed -i 's/\r$//' ~/.config/bash/alias.bsh
-sed -i 's/\r$//' ~/.config/bash/functions.bsh
-source ~/.bashrc
