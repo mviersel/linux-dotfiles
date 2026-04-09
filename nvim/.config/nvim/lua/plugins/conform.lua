@@ -6,6 +6,7 @@ return
       lua = { "stylua" },
       javascript = { "prettier" },
       typescript = { "prettier" },
+      markdown = { "prettier" },
       json = { "prettier" },
       jsonc = { "prettier" },
     },
