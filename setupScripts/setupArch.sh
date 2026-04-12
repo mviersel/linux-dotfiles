@@ -11,6 +11,9 @@ PACMAN_PACKAGES=(
   git
   rofi
   yazi
+  feh
+  i3blocks
+  i3bar
 )
 
 # Voeg hier je yay (AUR) packages toe
