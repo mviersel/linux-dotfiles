@@ -5,3 +5,6 @@ alias nf='nvim "$(fzf)"'
 
 alias tma="tmux attach"
 alias tmd="tmux detach"
+
+alias gis="git status"
+alias gif="git fetch && git pull"
