@@ -14,6 +14,8 @@ PACMAN_PACKAGES=(
   feh
   i3blocks
   i3bar
+  python
+  python-pipx
 )
 
 # Voeg hier je yay (AUR) packages toe
