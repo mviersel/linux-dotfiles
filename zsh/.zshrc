@@ -4,6 +4,7 @@
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
+export PATH="$PATH:/home/mrtn/.local/bin"
 
 source ~/.config/zsh/ytloader.zsh
 source ~/.config/zsh/alias.zsh
@@ -23,3 +24,4 @@ fastfetch
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
