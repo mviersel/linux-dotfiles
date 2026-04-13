@@ -15,7 +15,7 @@ fcd() {
 # usage:
 # monset <br_dp1> <ct_dp1> <br_dp2> <ct_dp2>
 
-monset() {
+brightt() {
   local br1="$1"
   local ct1="$2"
   local br2="$3"
