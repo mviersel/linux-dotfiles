@@ -2,3 +2,5 @@ alias win="cd /mnt/c/Users/Martijn/"
 alias la="ls -la"
 alias v="nvim"
 alias nf='nvim "$(fzf)"'
+
+alias lg="lazygit"
