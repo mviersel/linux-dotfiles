@@ -16,6 +16,7 @@ PACMAN_PACKAGES=(
   i3bar
   python
   python-pipx
+  flatpak
 )
 
 # Voeg hier je yay (AUR) packages toe
