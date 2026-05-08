@@ -36,7 +36,7 @@ exec --no-startup-id nm-applet
 
 # 👉 HIER je scherm setup
 
-exec_always --no-startup-id xrandr --output DP-2 --mode 2560x1440 --rate 144 --primary --output DP-4 --mode 3840x2160 --rate 60 --rotate inverted --scale 0.6667x0.6667 --above DP-2
+exec_always --no-startup-id xrandr --output DP-2 --mode 2560x1440 --rate 144 --primary --output DP-4 --mode 3840x2160 --rate 60 --rotate normal --scale 0.6667x0.6667 --left-of DP-2
 
 # Andere dingen
 
@@ -74,6 +74,10 @@ bindsym $mod+B exec ddcui
 
 bindsym $mod+e exec dolphin
 
+# bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Tab exec rofi -show window
+
+
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+d exec --no-startup-id rofi -show drun
@@ -99,7 +103,7 @@ bindsym $mod+Right focus right
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
-bindsym $mod+Shift+n move right
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
