@@ -17,12 +17,15 @@ PACMAN_PACKAGES=(
   python
   python-pipx
   flatpak
+  obsidian
+  xclip
 )
 
 # Voeg hier je yay (AUR) packages toe
 YAY_PACKAGES=(
   zen-browser-bin
   visual-studio-code-bin
+  helium-browser-bin
 )
 
 # ==============================
