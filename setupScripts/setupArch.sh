@@ -19,6 +19,7 @@ PACMAN_PACKAGES=(
   flatpak
   obsidian
   xclip
+  flameshot
 )
 
 # Voeg hier je yay (AUR) packages toe
