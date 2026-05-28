@@ -131,6 +131,7 @@ bindsym $mod+c layout toggle split
 # toggle tiling / floating
 bindsym $mod+t floating toggle
 
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 # change focus between tiling / floating windows
 # bindsym $mod+space focus mode_toggle
 
