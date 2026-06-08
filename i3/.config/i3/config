@@ -197,8 +197,11 @@ workspace $ws8 output DP-4
 workspace $ws9 output DP-4
 
 # programs bind to $ws
-assign [class="zen"] workspace $ws2
 assign [class="steam"] workspace $ws1
+assign [class="zen"] workspace $ws2
+assign [class="helium"] workspace $ws8
+assign [class="discord"] workspace $ws9
+assign [class="spotify"] workspace $ws9
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
