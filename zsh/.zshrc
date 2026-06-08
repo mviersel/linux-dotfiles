@@ -6,6 +6,9 @@
 # fi
 export PATH="$PATH:/home/mrtn/.local/bin"
 
+export EDITOR=nvim
+export VISUAL=nvim
+
 source ~/.config/zsh/ytloader.zsh
 source ~/.config/zsh/alias.zsh
 source ~/.config/zsh/functions.zsh
@@ -18,6 +21,10 @@ source /usr/share/cachyos-zsh-config/cachyos-config.zsh
 cl() {
   clear
   fastfetch
+}
+
+mkcd() {
+  mkdir -p "$1" && cd "$1"
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
