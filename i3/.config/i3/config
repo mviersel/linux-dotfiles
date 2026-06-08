@@ -43,7 +43,7 @@ exec_always --no-startup-id xrandr --output DP-2 --mode 2560x1440 --rate 144 --p
 exec --no-startup-id feh --bg-scale ~/.config/backgrounds/blackGreenComputers.jpeg
 #exec_always --no-startup-id xsetroot -solid "#000000"
 
-focus_follows_mouse no
+focus_follows_mouse yes
 mouse_warping none
 
 # with `xinput` you can find all the connected mice
@@ -241,7 +241,7 @@ bindsym $mod+r mode "resize"
 for_window [class="^.*"] border pixel 1
 
 default_border pixel 1
-default_floating_border pixel 1
+default_floating_border pixel 10
 hide_edge_borders none
 
 client.focused          #ffffff #222222 #ffffff #ffffff #ffffff
@@ -254,3 +254,6 @@ client.urgent           #ffffff #ffffff #000000 #ffffff #ffffff
 bar {
         # status_command i3status
 }
+workspace_layout default
+title_align left
+show_marks no
