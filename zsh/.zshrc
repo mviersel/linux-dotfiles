@@ -20,8 +20,11 @@ source /usr/share/cachyos-zsh-config/cachyos-config.zsh
 
 cl() {
   clear
+  echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
   fastfetch
 }
+
+alias nightlight="redshift"
 
 mkcd() {
   mkdir -p "$1" && cd "$1"
@@ -38,4 +41,5 @@ function y() {
 	command rm -f -- "$tmp"
 }
 
+echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
 fastfetch
