@@ -35,6 +35,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
+exec --no-startup-id picom
 
 # 👉 HIER je scherm setup
 
@@ -45,7 +46,7 @@ exec_always --no-startup-id xrandr --output DP-2 --mode 2560x1440 --rate 144 --p
 exec --no-startup-id feh --bg-scale ~/.config/backgrounds/blackGreenComputers.jpeg
 #exec_always --no-startup-id xsetroot -solid "#000000"
 
-focus_follows_mouse yes
+focus_follows_mouse false
 mouse_warping none
 
 # with `xinput` you can find all the connected mice
@@ -54,6 +55,12 @@ exec_always --no-startup-id xinput --set-prop "Endgame Gear Endgame Gear OP1 8k 
 
 exec_always --no-startup-id xinput --set-prop 25 "libinput Accel Profile Enabled" 0, 1
 exec_always --no-startup-id xinput --set-prop 25 "libinput Accel Speed" 0
+
+exec_always --no-startup-id xinput --set-prop 12 "libinput Accel Profile Enabled" 0, 1
+exec_always --no-startup-id xinput --set-prop 12 "libinput Accel Speed" 0
+
+exec_always --no-startup-id xinput --set-prop 22 "libinput Accel Profile Enabled" 0, 1
+exec_always --no-startup-id xinput --set-prop 22 "libinput Accel Speed" 0
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -201,7 +208,7 @@ workspace $ws9 output DP-4
 # programs bind to $ws
 assign [class="steam"] workspace $ws1
 assign [class="zen"] workspace $ws2
-assign [class="helium"] workspace $ws8
+assign [class="chrome"] workspace $ws8
 assign [class="discord"] workspace $ws9
 assign [class="spotify"] workspace $ws9
 
@@ -259,7 +266,18 @@ client.urgent           #ffffff #ffffff #000000 #ffffff #ffffff
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        # status_command i3status
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf
+        colors {
+                background #000000
+                statusline #f3f4f6
+                separator  #666666
+
+                focused_workspace  #2d6a4f #2d6a4f #f9fafb
+                active_workspace   #2d3138 #2d3138 #e5e7eb
+                inactive_workspace #23272e #23272e #cbd5e1
+                urgent_workspace   #7f1d1d #7f1d1d #f9fafb
+                binding_mode       #4b5563 #4b5563 #f9fafb
+        }
 }
 workspace_layout default
 title_align left
