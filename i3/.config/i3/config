@@ -255,12 +255,12 @@ bindsym $mod+r mode "resize"
 for_window [class="^.*"] border pixel 1
 
 default_border pixel 1
-default_floating_border pixel 10
+default_floating_border pixel 1
 hide_edge_borders none
 
 client.focused          #ffffff #222222 #ffffff #ffffff #ffffff
 client.unfocused        #000000 #000000 #000000 #000000 #000000
-client.focused_inactive #ffffff #ffffff #000000 #ffffff #ffffff
+client.focused_inactive #000000 #000000 #000000 #000000 #000000
 client.urgent           #ffffff #ffffff #000000 #ffffff #ffffff
 
 # Start i3bar to display a workspace bar (plus the system information i3status
