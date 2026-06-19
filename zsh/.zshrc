@@ -41,5 +41,9 @@ function y() {
 	command rm -f -- "$tmp"
 }
 
+function sleep() {
+  systemctl suspend
+}
+
 echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
 fastfetch
