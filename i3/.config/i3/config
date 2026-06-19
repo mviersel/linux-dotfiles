@@ -208,7 +208,8 @@ workspace $ws9 output DP-4
 # programs bind to $ws
 assign [class="steam"] workspace $ws1
 assign [class="zen"] workspace $ws2
-assign [class="chrome"] workspace $ws8
+assign [class="helium"] workspace $ws3
+assign [class="chrome"] workspace $ws3
 assign [class="discord"] workspace $ws9
 assign [class="spotify"] workspace $ws9
 
@@ -218,6 +219,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+bindsym --whole-window button3 nop
 
 # Media player controls 
 bindsym XF86AudioPlay exec playerctl play-pause 
@@ -258,7 +261,7 @@ default_border pixel 1
 default_floating_border pixel 1
 hide_edge_borders none
 
-client.focused          #ffffff #222222 #ffffff #ffffff #ffffff
+client.focused          #ffffff #222222 #ffffff #ffffff #f9fafb
 client.unfocused        #000000 #000000 #000000 #000000 #000000
 client.focused_inactive #000000 #000000 #000000 #000000 #000000
 client.urgent           #ffffff #ffffff #000000 #ffffff #ffffff
