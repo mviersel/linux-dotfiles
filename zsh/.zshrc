@@ -45,5 +45,7 @@ function sleep() {
   systemctl suspend
 }
 
+alias rebar="pkill waybar && waybar & disown"
+
 echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
 fastfetch
