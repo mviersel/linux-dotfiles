@@ -5,27 +5,29 @@
   "spacing" : 0,
   "modules-left": [
   "hyprland/workspaces",
-  "custom/uptime",
-  "cpu"
+  "custom/uptime"
   ],
 
   "modules-center": ["clock"],
 
   "modules-right": [
-    "custom/pomodoro",
     "bluetooth",
-    "network",
-    "pulseaudio", 
-    "backlight",
-    "battery",
+    "cpu",
+    "pulseaudio"
   ],
 
   "hyprland/workspaces": {
+    "all-outputs": false,
     "format": "{name}: {icon}",
+    "persistent-workspaces": {
+      "DP-2": [1, 2, 3, 4, 5],
+      "DP-3": [6, 7, 8, 9]
+    },
     "format-icons": {
       "active": "",
       "default": ""
-    }
+    },
+    "sort-by": "number"
   },
 
   "bluetooth": {
@@ -53,9 +55,9 @@
   },
 
   "clock": {
-    "timezone": "Asia/Kolkata",
+    "timezone": "Europe/Amsterdam",
     "tooltip": false,
-    "format": "{:%H:%M:%S  -  %A, %d}",
+    "format": "{:%H:%M -  %A %d}",
     "interval": 1
   },
 
