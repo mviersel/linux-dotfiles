@@ -1,0 +1,119 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    // "type": "small",
+    "source": "arch_small",
+    "padding": {
+      "top": 3,
+      "left": 3,
+      "right": 3
+    },
+    "color": {
+      "1": "@65",
+      "2": "@65"
+    }
+  },
+  "display": {
+    "separator": "  ",
+    "color": {
+      "separator": "239"
+    },
+    "key": {
+      "width": 13
+    },
+    "size": {
+      "maxPrefix": "GB",
+      "ndigits": 1
+    }
+  },
+  "modules": [
+    {
+      "type": "title",
+      "format": "{#@65}{user-name}{#@239}@{#@59}{host-name}{#}"
+    },
+    {
+      "type": "custom",
+      "format": "{#@239}------------------------{#}"
+    },
+    {
+      "type": "os",
+      "key": "os",
+      "keyColor": "@65",
+      "outputColor": "59"
+    },
+    {
+      "type": "kernel",
+      "key": "kernel",
+      "keyColor": "@65",
+      "outputColor": "59",
+      "format": "{release}"
+    },
+    {
+      "type": "uptime",
+      "key": "uptime",
+      "keyColor": "@65",
+      "outputColor": "59"
+    },
+    {
+      "type": "packages",
+      "key": "packages",
+      "keyColor": "@65",
+      "outputColor": "59",
+      "combined": true
+    },
+    {
+      "type": "shell",
+      "key": "shell",
+      "keyColor": "@65",
+      "outputColor": "59"
+    },
+    {
+      "type": "wm",
+      "key": "wm",
+      "keyColor": "@65",
+      "outputColor": "59"
+    },
+    {
+      "type": "terminal",
+      "key": "terminal",
+      "keyColor": "@65",
+      "outputColor": "59"
+    },
+    {
+      "type": "cpu",
+      "key": "cpu",
+      "keyColor": "@65",
+      "outputColor": "59",
+      "format": "{name}"
+    },
+    {
+      "type": "gpu",
+      "key": "gpu",
+      "keyColor": "@65",
+      "outputColor": "59",
+      "format": "{name}"
+    },
+    {
+      "type": "memory",
+      "key": "memory",
+      "keyColor": "@65",
+      "outputColor": "59",
+      "format": "{used} / {total}"
+    },
+    {
+      "type": "disk",
+      "key": "disk",
+      "keyColor": "@65",
+      "outputColor": "59",
+      "folders": "/",
+      "format": "{size-used} / {size-total}"
+    },
+    {
+      "type": "localip",
+      "key": "local ip",
+      "keyColor": "@65",
+      "outputColor": "59",
+      "format": "{ipv4}"
+    }
+  ]
+}
