@@ -45,6 +45,13 @@ function sleep() {
   systemctl suspend
 }
 
+function sshhaat(){
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+ssh-add -l
+git pull
+}
+
 alias rebar="pkill waybar && waybar & disown"
 
 echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
