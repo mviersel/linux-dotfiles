@@ -6,6 +6,8 @@
 # fi
 export PATH="$PATH:/home/mrtn/.local/bin"
 
+echo 'export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"' >> ~/.zshrc
+
 export EDITOR=nvim
 export VISUAL=nvim
 
@@ -56,3 +58,5 @@ alias rebar="pkill waybar && waybar & disown"
 
 echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
 fastfetch --config ~/.config/fastfetch/config.jsonc
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
