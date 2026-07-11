@@ -35,3 +35,29 @@ bright() {
   ddcutil setvcp 10 "$br2" --display 2 --noverify
   ddcutil setvcp 12 "$ct2" --display 2 --noverify
 }
+
+movr() {
+    local root_dir
+    root_dir="$(pwd -P)"
+
+    find "$root_dir" -mindepth 2 -type f -print0 |
+    while IFS= read -r -d '' source_file; do
+        local filename destination count
+
+        filename="$(basename "$source_file")"
+        destination="$root_dir/$filename"
+
+        if [[ -e "$destination" ]]; then
+            count=1
+            while [[ -e "$root_dir/${count}_$filename" ]]; do
+                ((count++))
+            done
+            destination="$root_dir/${count}_$filename"
+        fi
+
+        mv -- "$source_file" "$destination"
+        echo "Copied: $filename"
+    done
+
+    echo "Done."
+}
