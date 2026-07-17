@@ -5,8 +5,7 @@
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 export PATH="$PATH:/home/mrtn/.local/bin"
-
-echo 'export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"' >> ~/.zshrc
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -58,4 +57,4 @@ alias rebar="pkill waybar && waybar & disown"
 
 echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
 fastfetch --config ~/.config/fastfetch/config.jsonc
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
