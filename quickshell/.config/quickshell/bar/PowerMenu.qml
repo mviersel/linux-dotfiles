@@ -45,10 +45,10 @@ PopupWindow {
             Repeater {
                 model: [
                     { label: "Lock", command: ["hyprlock"] },
-                    { label: "Suspend", command: ["systemctl", "suspend"] },
+                    { label: "Suspend", command: ["loginctl", "suspend"] },
                     { label: "Logout", command: ["sh", "-c", "loginctl terminate-user \"$USER\""] },
-                    { label: "Restart", command: ["systemctl", "reboot"] },
-                    { label: "Shutdown", command: ["systemctl", "poweroff"] }
+                    { label: "Restart", command: ["loginctl", "reboot"] },
+                    { label: "Shutdown", command: ["loginctl", "poweroff"] }
                 ]
 
                 delegate: Rectangle {
