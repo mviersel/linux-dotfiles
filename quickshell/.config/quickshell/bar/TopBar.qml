@@ -16,11 +16,25 @@ Rectangle {
 
     readonly property var batteryDevice: UPower.displayDevice
     readonly property var barMonitor: Hyprland.monitorFor(barScreen)
+    property int pendingVolumeDelta: 0
 
     function batteryLabel(): string {
         if (!batteryDevice.ready || !batteryDevice.isLaptopBattery) return "";
 
         return `${Math.round(batteryDevice.percentage)}%`;
+    }
+
+    function adjustVolume(delta: int): void {
+        if (delta === 0) return;
+
+        if (volumeAdjuster.running) {
+            pendingVolumeDelta += delta;
+            return;
+        }
+
+        const step = Math.max(1, Math.round(Math.abs(delta) / 120)) * 5;
+        volumeAdjuster.command = ["sh", "-c", `wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${step}%${delta > 0 ? "+" : "-"} && wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ if ($3 == "[MUTED]") { muted=1 } vol=int($2 * 100 + 0.5) } END { if (muted) printf "\\uf026 muted"; else printf "\\uf028 %d%%", vol }'`];
+        volumeAdjuster.running = true;
     }
 
     color: shell.bg
@@ -49,20 +63,20 @@ Rectangle {
 
                     visible: onCurrentMonitor
                     radius: 6
-                    color: activeWorkspace ? shell.accentSoft : shell.bgHover
-                    border.width: 1
-                    border.color: activeWorkspace ? shell.accentLine : shell.tooltipBorder
+                    color: activeWorkspace ? shell.accent : shell.bgHover
+                    border.width: activeWorkspace ? 2 : 1
+                    border.color: activeWorkspace ? shell.fg : shell.tooltipBorder
                     implicitHeight: 24
-                    implicitWidth: Math.max(workspaceLabel.implicitWidth + 16, implicitHeight)
+                    implicitWidth: Math.max(workspaceLabel.implicitWidth + (activeWorkspace ? 24 : 16), implicitHeight)
 
                     Label {
                         id: workspaceLabel
 
                         anchors.centerIn: parent
                         text: modelData.id > 0 ? `${modelData.id}` : modelData.name
-                        color: activeWorkspace ? shell.accent : shell.fg
-                        font.pixelSize: 11
-                        font.weight: Font.Medium
+                        color: activeWorkspace ? shell.bg : shell.fg
+                        font.pixelSize: activeWorkspace ? 12 : 11
+                        font.weight: activeWorkspace ? Font.Bold : Font.Medium
                     }
 
                     MouseArea {
@@ -109,6 +123,10 @@ Rectangle {
             borderColor: shell.tooltipBorder
             clickable: true
             mouseArea.onClicked: volumeLauncher.startDetached()
+            mouseArea.onWheel: wheel => {
+                barRoot.adjustVolume(wheel.angleDelta.y);
+                wheel.accepted = true;
+            }
         }
 
         StatusChip {
@@ -168,6 +186,17 @@ Rectangle {
 
                         anchors.fill: parent
                         hoverEnabled: true
+                        acceptedButtons: Qt.LeftButton | Qt.RightButton
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: mouse => {
+                            if (mouse.button === Qt.RightButton || modelData.onlyMenu) {
+                                const position = barRoot.QSWindow.mapFromItem(parent, parent.width / 2, parent.height);
+                                modelData.display(barRoot.QSWindow.window, position.x, position.y);
+                                return;
+                            }
+
+                            modelData.activate();
+                        }
                     }
                 }
             }
@@ -222,5 +251,22 @@ Rectangle {
         id: volumeLauncher
 
         command: ["pavucontrol"]
+    }
+
+    Process {
+        id: volumeAdjuster
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const volume = text.trim();
+                if (volume) shell.volumeText = volume;
+
+                if (pendingVolumeDelta !== 0) {
+                    const delta = pendingVolumeDelta;
+                    pendingVolumeDelta = 0;
+                    adjustVolume(delta);
+                }
+            }
+        }
     }
 }
