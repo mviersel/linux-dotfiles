@@ -10,3 +10,5 @@ alias t="tmux"
 alias tma="tmux attach"
 alias tmd="tmux detach"
 alias tmls="tmux ls"
+
+alias spot="spotify_player"
