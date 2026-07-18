@@ -58,3 +58,6 @@ alias rebar="pkill waybar && waybar & disown"
 echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
 fastfetch --config ~/.config/fastfetch/config.jsonc
 
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  tmux attach-session -t home || tmux new-session -s home
+fi
