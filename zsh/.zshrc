@@ -21,7 +21,7 @@ source /usr/share/cachyos-zsh-config/cachyos-config.zsh
 
 cl() {
   clear
-  echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
+  echo "(y)=Yazi (t)=Tmux (v)=nVim"
   fastfetch --config ~/.config/fastfetch/config.jsonc
 }
 
@@ -55,7 +55,7 @@ git pull
 
 alias rebar="pkill waybar && waybar & disown"
 
-echo "(y)=Yazi (t)=Tmux (v)=nVim nightlight=redshift"
+echo "(y)=Yazi (t)=Tmux (v)=nVim"
 fastfetch --config ~/.config/fastfetch/config.jsonc
 
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
