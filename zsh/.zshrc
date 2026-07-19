@@ -59,5 +59,26 @@ echo "(y)=Yazi (t)=Tmux (v)=nVim"
 fastfetch --config ~/.config/fastfetch/config.jsonc
 
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  tmux attach-session -t home || tmux new-session -s home
+  tmux has-session -t home 2>/dev/null ||
+    tmux new-session -d -s home -c "$HOME"
+
+  tmux has-session -t btop 2>/dev/null || {
+    tmux new-session -d -s btop
+    tmux send-keys -t btop "btop" C-m
+  }
+
+  tmux has-session -t spotify 2>/dev/null || {
+    tmux new-session -d -s spotify
+    tmux send-keys -t spotify "spotify_player" C-m
+  }
+
+  tmux has-session -t notes 2>/dev/null || {
+    tmux new-session -d -s notes -c "$HOME/Documents/Obidian"
+    tmux send-keys -t notes "nvim ." C-m
+  }
+
+  tmux has-session -t dotfiles 2>/dev/null ||
+    tmux new-session -d -s dotfiles -c "$HOME/linux-dotfiles"
+
+  tmux attach-session -t home
 fi
