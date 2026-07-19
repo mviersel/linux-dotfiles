@@ -10,5 +10,6 @@ alias t="tmux"
 alias tma="tmux attach"
 alias tmd="tmux detach"
 alias tmls="tmux ls"
+alias tm-kill="tmux kill-server"
 
 alias spot="spotify_player"
