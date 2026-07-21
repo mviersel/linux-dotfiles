@@ -61,7 +61,7 @@ Rectangle {
                     readonly property bool onCurrentMonitor: modelData.monitor === barRoot.barMonitor
                     readonly property bool activeWorkspace: modelData.focused || modelData.active
 
-                    visible: onCurrentMonitor
+                    visible: onCurrentMonitor && modelData.name !== "special:terminal"
                     radius: 6
                     color: activeWorkspace ? shell.accent : shell.bgHover
                     border.width: activeWorkspace ? 2 : 1
