@@ -57,6 +57,8 @@ alias ssha="ssh-add ~/.ssh/id_ed25519"
 
 alias rebar="pkill waybar && waybar & disown"
 
+alias yayupdate="yay -Sua"
+
 echo "(y)=Yazi (t)=Tmux (v)=nVim"
 fastfetch --config ~/.config/fastfetch/config.jsonc
 
