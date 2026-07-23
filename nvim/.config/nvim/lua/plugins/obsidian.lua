@@ -1,49 +1,46 @@
 return {
-  "epwalsh/obsidian.nvim",
-  version = "*",
+  "obsidian-nvim/obsidian.nvim",
   lazy = true,
 
-  -- 1) Zorg dat lazy.nvim de plugin laadt zodra je een Obsidian command uitvoert
   cmd = {
-    "ObsidianNew",
-    "ObsidianOpen",
-    "ObsidianQuickSwitch",
-    "ObsidianSearch",
-    "ObsidianToday",
-    "ObsidianYesterday",
-    "ObsidianTomorrow",
-    "ObsidianBacklinks",
-    "ObsidianTags",
-    "ObsidianTemplate",
+    "Obsidian",
   },
-
-  -- (optioneel) je mag ft = "markdown" houden, maar het is niet meer nodig als je cmd gebruikt
-  -- ft = "markdown",
 
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
 
   opts = {
+    legacy_commands = false,
     workspaces = {
       {
-        name = "personal",
-        path = "~/vaults/personal",
+        name = "obsidian",
+        path = "~/obidian",
       },
     },
 
-    -- 2) Commands globaal beschikbaar maken (oplossing 1)
-    commands = {
-      ObsidianNew = { enabled = true },
-      ObsidianOpen = { enabled = true },
-      ObsidianQuickSwitch = { enabled = true },
-      ObsidianSearch = { enabled = true },
-      ObsidianToday = { enabled = true },
-      ObsidianYesterday = { enabled = true },
-      ObsidianTomorrow = { enabled = true },
-      ObsidianBacklinks = { enabled = true },
-      ObsidianTags = { enabled = true },
-      ObsidianTemplate = { enabled = true },
+    notes_subdir = "00Inbox",
+    new_notes_location = "notes_subdir",
+
+    note_id_func = function(title, path)
+      print("OBSIDIAN TITLE:", vim.inspect(title))
+
+      if title and title ~= "" then
+        return title
+      end
+
+      return tostring(os.time())
+    end,
+
+    templates = {
+      folder = ".templates",
     },
+
+    daily_notes = {
+      folder = "00Inbox",
+      template = "daily.md",
+    },
+
+    follow_url_func = vim.ui.open,
   },
 }
