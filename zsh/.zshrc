@@ -53,6 +53,8 @@ ssh-add -l
 git pull
 }
 
+alias ssha="ssh-add ~/.ssh/id_ed25519"
+
 alias rebar="pkill waybar && waybar & disown"
 
 echo "(y)=Yazi (t)=Tmux (v)=nVim"
