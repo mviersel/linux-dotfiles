@@ -1,10 +1,8 @@
 return {
   "obsidian-nvim/obsidian.nvim",
-  lazy = true,
 
-  cmd = {
-    "Obsidian",
-  },
+  lazy = true,
+  ft = "markdown",
 
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -12,6 +10,7 @@ return {
 
   opts = {
     legacy_commands = false,
+
     workspaces = {
       {
         name = "obsidian",
@@ -22,25 +21,17 @@ return {
     notes_subdir = "00Inbox",
     new_notes_location = "notes_subdir",
 
-    note_id_func = function(title, path)
-      print("OBSIDIAN TITLE:", vim.inspect(title))
-
-      if title and title ~= "" then
-        return title
-      end
-
-      return tostring(os.time())
+    note_id_func = function(title, dir)
+      return require("obsidian.builtin").title_id(title, dir)
     end,
 
     templates = {
-      folder = ".templates",
+      folder = "templates",
     },
 
     daily_notes = {
       folder = "00Inbox",
       template = "daily.md",
     },
-
-    follow_url_func = vim.ui.open,
   },
 }
