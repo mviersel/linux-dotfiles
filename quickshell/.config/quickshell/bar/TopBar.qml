@@ -52,6 +52,18 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
             spacing: 8
 
+            StatusChip {
+                id: powerChip
+
+                Layout.alignment: Qt.AlignVCenter
+                text: "\uf303"
+                bgColor: shell.bgHover
+                fgColor: shell.fg
+                borderColor: shell.tooltipBorder
+                clickable: true
+                mouseArea.onClicked: powerMenu.visible = !powerMenu.visible
+            }
+
             Repeater {
                 model: Hyprland.workspaces
 
@@ -200,18 +212,6 @@ Rectangle {
                     }
                 }
             }
-        }
-
-        StatusChip {
-            id: powerChip
-
-            Layout.alignment: Qt.AlignVCenter
-            text: "\uf303"
-            bgColor: shell.bgHover
-            fgColor: shell.fg
-            borderColor: shell.tooltipBorder
-            clickable: true
-            mouseArea.onClicked: powerMenu.visible = !powerMenu.visible
         }
     }
 
