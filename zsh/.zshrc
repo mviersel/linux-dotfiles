@@ -75,7 +75,7 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   }
 
   tmux has-session -t notes 2>/dev/null ||
-    tmux new-session -d -s notes -c "$HOME/obidian" nvim .
+    tmux new-session -d -s notes -c "$HOME/obidian" nvim home.md
 
   tmux has-session -t dotfiles 2>/dev/null ||
     tmux new-session -d -s dotfiles -c "$HOME/linux-dotfiles"
