@@ -68,6 +68,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("gnome-keyring-daemon")
 	hl.exec_cmd("mako")
 	hl.exec_cmd("megasync")
+	hl.exec_cmd("zapzap")
+	hl.exec_cmd("CoolerControl")
 end)
 
 -------------------------------
@@ -242,7 +244,7 @@ hl.config({
 		kb_options = "",
 		kb_rules = "",
 
-		follow_mouse = 1,
+		follow_mouse = 0,
 
 		sensitivity = 0.0,
 		accel_profile = "flat",
@@ -255,6 +257,7 @@ hl.config({
 
 	cursor = {
 		no_hardware_cursors = 0,
+		no_warps = true,
 	},
 })
 
@@ -323,8 +326,8 @@ hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("rofi -show window"))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd(lock))
 
 -- Example special workspace (scratchpad)
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("terminal"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:terminal" }))
 
 -- Scroll through existing workspaces with mainMod + scroll
 -- hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -432,7 +435,8 @@ hl.window_rule({ match = { class = "^steam$" }, workspace = "1" })
 hl.window_rule({ match = { class = "^prism launcher$" }, workspace = "1" })
 hl.window_rule({ match = { class = "^app.zen_browser.zen" }, workspace = "2" })
 hl.window_rule({ match = { class = "^helium$" }, workspace = "3" })
-hl.window_rule({ match = { class = "^bascom$" }, workspace = "6" })
+hl.window_rule({ match = { class = "^Bascom$" }, workspace = "6" })
 hl.window_rule({ match = { class = "^zapzap$" }, workspace = "7" })
+hl.window_rule({ match = { class = "^Obsidian$" }, workspace = "8" })
 hl.window_rule({ match = { class = "^spotify$" }, workspace = "9" })
 hl.window_rule({ match = { class = "^discord$" }, workspace = "9" })
