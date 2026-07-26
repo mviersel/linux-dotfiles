@@ -12,15 +12,15 @@ import "bar" as Bar
 ShellRoot {
     id: root
 
-    readonly property color bg: "#12130d"
-    readonly property color bgHover: "#2a2d1c"
-    readonly property color fg: "#dbe3c6"
-    readonly property color fgMuted: "#8e9963"
-    readonly property color accent: "#b9c97a"
-    readonly property color accentSoft: "#1fb9c97a"
-    readonly property color accentLine: "#3db9c97a"
-    readonly property color tooltipBorder: "#1fdbe3c6"
-    readonly property color shadow: "#33000000"
+    readonly property color bg: "#0b0b0a"
+    readonly property color bgHover: "#1d1c18"
+    readonly property color fg: "#f4efe6"
+    readonly property color fgMuted: "#a9a295"
+    readonly property color accent: "#f7f0df"
+    readonly property color accentSoft: "#22f7f0df"
+    readonly property color accentLine: "#45f7f0df"
+    readonly property color tooltipBorder: "#24f4efe6"
+    readonly property color shadow: "#44000000"
     readonly property alias shellClock: clock
     property string activeWindowTitle: "Desktop"
     property string cpuUsageText: "\uf2db --%"
