@@ -18,9 +18,9 @@ Rectangle {
     }
 
     radius: 6
-    color: rootShell.accentSoft
+    color: rootShell.bgHover
     border.width: 1
-    border.color: rootShell.accentLine
+    border.color: rootShell.tooltipBorder
     implicitHeight: 24
     implicitWidth: Math.max(mediaControls.implicitWidth + 12, implicitHeight)
 
@@ -80,7 +80,7 @@ Rectangle {
             Label {
                 anchors.centerIn: parent
                 text: player && player.isPlaying ? "||" : ">"
-                color: rootShell.accent
+                color: rootShell.fg
                 font.pixelSize: 11
                 font.weight: Font.Bold
             }
