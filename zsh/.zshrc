@@ -80,5 +80,8 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   tmux has-session -t dotfiles 2>/dev/null ||
     tmux new-session -d -s dotfiles -c "$HOME/linux-dotfiles"
 
+  tmux has-session -t yazi 2>/dev/null ||
+    tmux new-session -d -s yazi -c "$HOME" yazi
+
   tmux attach-session -t home
 fi
