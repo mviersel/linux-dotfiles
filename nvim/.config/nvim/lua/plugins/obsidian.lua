@@ -30,7 +30,7 @@ return {
     },
 
     daily_notes = {
-      folder = "00Inbox",
+      folder = "00Dailies",
       template = "daily.md",
     },
   },
