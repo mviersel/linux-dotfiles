@@ -1,0 +1,36 @@
+font=sans 11
+width=360
+height=110
+margin=10
+padding=12
+border-size=1
+border-radius=8
+icons=1
+max-icon-size=64
+
+background-color=#0b0b0a
+text-color=#f4efe6
+border-color=#f4efe624
+progress-color=over #f7f0df
+
+default-timeout=5000
+ignore-timeout=1
+max-visible=5
+sort=-time
+layer=overlay
+anchor=top-right
+
+[urgency=low]
+border-color=#f4efe624
+default-timeout=3000
+
+[urgency=normal]
+border-color=#f4efe624
+
+[urgency=high]
+border-color=#f7f0df45
+default-timeout=0
+
+[category=mpd]
+default-timeout=2000
+group-by=category
