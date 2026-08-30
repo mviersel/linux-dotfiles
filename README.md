@@ -1,12 +1,15 @@
-# Automatische installer maken (install.sh)
+# linux-dotfiles
+
+## Screenshot
+![preview screenshot](./readme/preview-screenshot-lego.png)
+
+## Automatische installer maken (install.sh)
 
 Starting a new system?
 - Arch 
 Look for [packages](https://archlinux.org/packages/?sort=&q=rofi&maintainer=&flagged=)
 - Ubuntu
 - Fedora
-
-
 
 Op een nieuwe machine:
 ```
