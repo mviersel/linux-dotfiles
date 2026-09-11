@@ -6,6 +6,7 @@
 # fi
 export PATH="$PATH:/home/mrtn/.local/bin"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export PATH="$HOME/.config/emacs/bin:$PATH"
 
 export EDITOR=nvim
 export VISUAL=nvim
