@@ -1,0 +1,44 @@
+{
+    "$schema": "https://vicinae.com/schemas/config.json",
+    "close_on_focus_loss": true,
+    "pop_to_root_on_close": true,
+    "theme": {
+        "dark": {
+            "name": "ayu-mirage",
+            "icon_theme": "Hicolor"
+        }
+    },
+    "telemetry": {
+        "system_info": false
+    },
+    "launcher_window": {
+        "opacity": 1,
+        "compact_mode": {
+            "enabled": true
+        }
+    },
+    "providers": {
+        "@kud/store.raycast.thermoconvert": {
+            "entrypoints": {
+                "convert": {
+                    "alias": ";"
+                }
+            }
+        },
+        "files": {
+            "preferences": {
+                "autoIndexing": true,
+                "excludedIndexingPaths": [],
+                "indexingPaths": [
+                    "/home/mrtn",
+                    "/mnt/samsung-Evo-860"
+                ]
+            },
+            "entrypoints": {
+                "search": {
+                    "alias": "."
+                }
+            }
+        }
+    }
+}
