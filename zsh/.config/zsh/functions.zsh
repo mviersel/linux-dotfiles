@@ -22,18 +22,18 @@ bright() {
   local ct2="$4"
 
   if [[ $# -ne 4 ]]; then
-    echo "Gebruik: monset <brightness_dp1> <contrast_dp1> <brightness_dp2> <contrast_dp2>"
-    echo "Voorbeeld: monset 70 60 50 55"
+    echo "Gebruik: bright <br1> <ct1> <br2> <ct2>"
+    echo "Voorbeeld: bright 70 60 50 55"
     return 1
   fi
 
-  # DP-2 (display 1)
-  ddcutil setvcp 10 "$br1" --display 1 --noverify
-  ddcutil setvcp 12 "$ct1" --display 1 --noverify
+  # DP-2 → /dev/i2c-6
+  ddcutil setvcp 10 "$br1" --bus 6 --noverify
+  ddcutil setvcp 12 "$ct1" --bus 6 --noverify
 
-  # DP-3 (display 2)
-  ddcutil setvcp 10 "$br2" --display 2 --noverify
-  ddcutil setvcp 12 "$ct2" --display 2 --noverify
+  # DP-3 → /dev/i2c-7
+  ddcutil setvcp 10 "$br2" --bus 7 --noverify
+  ddcutil setvcp 12 "$ct2" --bus 7 --noverify
 }
 
 movr() {
