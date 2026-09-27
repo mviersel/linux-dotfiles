@@ -85,7 +85,8 @@ Rectangle {
                         id: workspaceLabel
 
                         anchors.centerIn: parent
-                        text: modelData.id > 0 ? `${modelData.id}` : modelData.name
+                        // text: modelData.id > 0 ? `${modelData.id}` : modelData.name
+                        text: modelData.name
                         color: activeWorkspace ? shell.bg : shell.fg
                         font.pixelSize: activeWorkspace ? 12 : 11
                         font.weight: activeWorkspace ? Font.Bold : Font.Medium
