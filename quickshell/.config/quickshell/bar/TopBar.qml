@@ -143,6 +143,18 @@ Rectangle {
         }
 
         StatusChip {
+            id: mixerChip
+
+            Layout.alignment: Qt.AlignVCenter
+            text: "\uf1de"
+            bgColor: shell.bgHover
+            fgColor: shell.fg
+            borderColor: shell.tooltipBorder
+            clickable: true
+            mouseArea.onClicked: mixerMenu.visible = !mixerMenu.visible
+        }
+
+        StatusChip {
             Layout.alignment: Qt.AlignVCenter
             text: "\uf293"
             bgColor: shell.bgHover
@@ -240,6 +252,50 @@ Rectangle {
 
         rootShell: barRoot.shell
         anchorItem: powerChip
+    }
+
+    PanelWindow {
+        id: mixerDismissWindow
+
+        visible: mixerMenu.visible
+        screen: barScreen
+        color: "transparent"
+        focusable: true
+        implicitWidth: screen ? screen.width : 0
+        implicitHeight: screen ? screen.height : 0
+        onVisibleChanged: if (visible) mixerDismissFocus.forceActiveFocus()
+        anchors {
+            top: true
+            bottom: true
+            left: true
+            right: true
+        }
+
+        FocusScope {
+            id: mixerDismissFocus
+
+            anchors.fill: parent
+            focus: mixerDismissWindow.visible
+
+            Keys.onPressed: event => {
+                if (event.key === Qt.Key_Escape) {
+                    mixerMenu.visible = false;
+                    event.accepted = true;
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: mixerMenu.visible = false
+            }
+        }
+    }
+
+    MixerMenu {
+        id: mixerMenu
+
+        rootShell: barRoot.shell
+        anchorItem: mixerChip
     }
 
     Process {
