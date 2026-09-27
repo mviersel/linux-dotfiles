@@ -12,6 +12,8 @@ alias tmd="tmux detach"
 alias tmls="tmux ls"
 alias tm-kill="tmux kill-server"
 
+alias cdl="cd && clear && fastfetch"
+
 alias spot="spotify_player"
 
 alias zshali="nvim ~/.config/zsh/alias.zsh"
