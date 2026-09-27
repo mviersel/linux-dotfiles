@@ -61,3 +61,7 @@ movr() {
 
     echo "Done."
 }
+
+hyper() {
+    v ~/.config/hypr/hyprland.lua
+}
