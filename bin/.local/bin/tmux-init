@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Standaard naar home als geen sessie is opgegeven
+session="${1:-home}"
+
+# Controleer of tmux beschikbaar is
+if ! command -v tmux &>/dev/null; then
+    echo "Error: tmux is not installed" >&2
+    exit 1
+fi
+
+# Bestaande sessies niet opnieuw aanmaken
+if tmux has-session -t "=$session" 2>/dev/null; then
+    exit 0
+fi
+
+# Configuratie per sessie
+command_to_run=""
+
+case "$session" in
+home)
+    directory="$HOME"
+    ;;
+
+dotfiles)
+    directory="$HOME/linux-dotfiles"
+    ;;
+
+btop)
+    directory="$HOME"
+    command_to_run="btop"
+    ;;
+
+spotify)
+    directory="$HOME"
+    command_to_run="spotatui"
+    ;;
+
+notes)
+    directory="$HOME/obsidian"
+    command_to_run="nvim home.md"
+    ;;
+
+opencode)
+    directory="$HOME"
+    ;;
+
+yazi)
+    directory="$HOME"
+    command_to_run="yazi"
+    ;;
+
+*)
+    echo "Unknown session: $session" >&2
+    exit 1
+    ;;
+esac
+
+# Controleer of de directory bestaat
+if [[ ! -d "$directory" ]]; then
+    echo "Directory not found: $directory" >&2
+    exit 1
+fi
+
+# Maak de sessie aan
+tmux new-session -d -s "$session" -c "$directory"
+
+# Start het bijbehorende programma
+if [[ -n "$command_to_run" ]]; then
+    tmux send-keys -t "$session:0.0" \
+        "$command_to_run" Enter
+fi
