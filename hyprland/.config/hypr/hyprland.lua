@@ -3,6 +3,7 @@
 -- You can (and should!!) split this configuration into multiple files
 -- Create your files separately and then require them like this:
 -- require("myColors")
+--
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -11,40 +12,51 @@
 -- Set programs that you use
 local terminal = "kitty"
 local fileManager = "dolphin"
-local menu = "hyprlauncher"
+-- local menu = "hyprlauncher"
 local picker = "hyprpicker -a"
 local lock = "hyprlock"
+local emoji = "rofimoji --action copy"
+-- local emoji = "rofimoji --action type"
 
 ------------------
 ---- MONITORS ----
 ------------------
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
-hl.monitor({
+hl.monitor({ -- Main monitor
 	output = "DP-2",
 	mode = "2560x1440@144",
 	position = "0x0",
 	scale = 1,
 })
 
-hl.monitor({
+hl.monitor({ -- 4K monitor horizontaal links naast main monitor
 	output = "DP-3",
 	mode = "3840x2160@60",
 	position = "-2560x0",
 	scale = 1.5,
 })
 
-hl.workspace_rule({ workspace = "1", monitor = "DP-2", default = true, persistent = true })
-hl.workspace_rule({ workspace = "2", monitor = "DP-2", persistent = true })
-hl.workspace_rule({ workspace = "3", monitor = "DP-2", persistent = true })
-hl.workspace_rule({ workspace = "4", monitor = "DP-2", persistent = true })
-hl.workspace_rule({ workspace = "5", monitor = "DP-2", persistent = true })
+-- hl.monitor({ -- 4K monitor verticaal links naast main monitor
+-- 	output = "DP-3",
+-- 	mode = "3840x2160@60",
+-- 	position = "-1440x0",
+-- 	scale = 1.5,
+-- 	transform = 1,
+-- })
+
+hl.workspace_rule({ default_name = "󰊴", workspace = "1", monitor = "DP-2", default = true, persistent = true })
+hl.workspace_rule({ default_name = "", workspace = "2", monitor = "DP-2", persistent = true })
+hl.workspace_rule({ default_name = "󰌌", workspace = "3", monitor = "DP-2", persistent = true })
+hl.workspace_rule({ workspace = "4", monitor = "DP-2", persistent = false })
+hl.workspace_rule({ workspace = "5", monitor = "DP-2", persistent = false })
 
 -- DP-3 Workspaces
-hl.workspace_rule({ workspace = "6", monitor = "DP-3", persistent = true })
-hl.workspace_rule({ workspace = "7", monitor = "DP-3", persistent = true })
-hl.workspace_rule({ workspace = "8", monitor = "DP-3", persistent = true })
-hl.workspace_rule({ workspace = "9", monitor = "DP-3", default = true, persistent = true })
+hl.workspace_rule({ workspace = "6", monitor = "DP-3", persistent = false })
+hl.workspace_rule({ workspace = "7", monitor = "DP-3", persistent = false })
+hl.workspace_rule({ workspace = "8", monitor = "DP-3", persistent = false })
+hl.workspace_rule({ default_name = "", workspace = "9", monitor = "DP-3", persistent = true, default = true })
+hl.workspace_rule({ default_name = "󰄮", workspace = "10", monitor = "DP-3", persistent = true })
 
 -------------------
 ---- AUTOSTART ----
@@ -64,6 +76,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("steam")
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("vicinae server")
+	-- hl.exec_cmd("sh -c 'pgrep -x lookapp >/dev/null || exec env __NV_DISABLE_EXPLICIT_SYNC=1 lookapp'")
 	hl.exec_cmd("qs -d")
 	hl.exec_cmd("gnome-keyring-daemon")
 	hl.exec_cmd("mako")
@@ -80,6 +93,8 @@ end)
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
+
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -113,7 +128,7 @@ hl.config({
 
 		col = {
 			-- active_border = { colors = { "rgba(00ff99ee)" } },
-			active_border = { colors = { "rgba(142, 153, 99, 1)" } },
+			active_border = { colors = { "rgba(244, 239, 230, 0.9)" } },
 			inactive_border = "rgba(595959aa)",
 		},
 
@@ -144,8 +159,9 @@ hl.config({
 		blur = {
 			enabled = true,
 			size = 3,
-			passes = 1,
+			passes = 3,
 			vibrancy = 0.1696,
+			ignore_opacity = true,
 		},
 	},
 
@@ -244,7 +260,7 @@ hl.config({
 		kb_options = "",
 		kb_rules = "",
 
-		follow_mouse = 0,
+		follow_mouse = 1,
 
 		sensitivity = 0.0,
 		accel_profile = "flat",
@@ -293,13 +309,18 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen("maximized", "toggle"))
 -- Hyprlauncher
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
-hl.bind("ALT + SPACE", hl.dsp.exec_cmd("vicinae open"))
-hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd(picker))
-hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("hyprshot -m region"))
+-- hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
+-- hl.bind("ALT + SPACE", hl.dsp.exec_cmd("look open"))
+hl.bind(mainMod .. "+ SPACE", hl.dsp.exec_cmd("vicinae open"))
+hl.bind(mainMod .. "+ SHIFT + C", hl.dsp.exec_cmd(picker))
+hl.bind(mainMod .. "+ comma", hl.dsp.exec_cmd(emoji))
+hl.bind(mainMod .. "+ SHIFT + V", hl.dsp.exec_cmd("hyprshot -m region"))
 
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 -- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
+
+hl.bind(mainMod .. "+ period", hl.dsp.exec_cmd("python3 ~/.config/hypr/scripts/cycle-width.py next"))
+-- hl.bind(mainMod .. "+ comma", hl.dsp.exec_cmd("python3 ~/.config/hypr/scripts/cycle-width.py prev"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
@@ -367,6 +388,25 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
+local external_monitor = "DP-3"
+
+hl.bind("SUPER + P", function()
+	hl.exec_cmd(string.format(
+		[[
+            if hyprctl monitors | grep -q '^Monitor %s'; then
+                hyprctl keyword monitor '%s,disable'
+            else
+                hyprctl keyword monitor '%s,preferred,auto,1'
+            fi
+            ]],
+		external_monitor,
+		external_monitor,
+		external_monitor
+	))
+end, {
+	description = "Extern scherm aan/uit",
+})
+
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
@@ -433,10 +473,21 @@ hl.env("SSH_AUTH_SOCK", os.getenv("XDG_RUNTIME_DIR") .. "/ssh-agent.socket")
 
 hl.window_rule({ match = { class = "^steam$" }, workspace = "1" })
 hl.window_rule({ match = { class = "^prism launcher$" }, workspace = "1" })
-hl.window_rule({ match = { class = "^app.zen_browser.zen" }, workspace = "2" })
-hl.window_rule({ match = { class = "^helium$" }, workspace = "3" })
-hl.window_rule({ match = { class = "^Bascom$" }, workspace = "6" })
-hl.window_rule({ match = { class = "^zapzap$" }, workspace = "7" })
-hl.window_rule({ match = { class = "^Obsidian$" }, workspace = "8" })
+
+hl.window_rule({ match = { class = "^zen" }, workspace = "2" })
+hl.window_rule({ match = { class = "^helium$" }, workspace = "2" })
+hl.window_rule({ match = { class = "^floorp$" }, workspace = "2" })
+hl.window_rule({ match = { class = "^brave-origin$" }, workspace = "2" })
+
+hl.window_rule({ match = { class = "^obsidian$" }, workspace = "4" })
+
+hl.window_rule({ match = { class = "^bascom$" }, workspace = "7" })
+-- hl.window_rule({ match = { class = "^zapzap$" }, workspace = "7" })
+--
 hl.window_rule({ match = { class = "^spotify$" }, workspace = "9" })
 hl.window_rule({ match = { class = "^discord$" }, workspace = "9" })
+
+-- hl.window_rule({ match = { class = "^kitty$" }, workspace = "10" })
+
+-- HyprMod managed settings
+require("hyprland-gui")
