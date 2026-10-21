@@ -5,9 +5,11 @@
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 export PATH="$PATH:/home/mrtn/.local/bin"
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export PATH="$HOME/.config/emacs/bin:$PATH"
 export PATH="$HOME/.local/share/qmk/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # eval "$(keychain --eval --quiet id_ed25519)"
 
@@ -66,32 +68,40 @@ alias yayupdate="yay -Sua"
 # echo "(y)=Yazi (t)=Tmux (v)=nVim"
 fastfetch --config ~/.config/fastfetch/config.jsonc
 
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  tmux has-session -t home 2>/dev/null ||
-    tmux new-session -d -s home -c "$HOME"
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#   tmux has-session -t home 2>/dev/null ||
+#     tmux new-session -d -s home -c "$HOME"
+#
+#   tmux has-session -t btop 2>/dev/null ||
+#     tmux new-session -d -s btop btop
+#
+#   tmux has-session -t spotify 2>/dev/null || {
+#     tmux new-session -d -s spotify
+#     tmux send-keys -t spotify "spotatui"
+#   }
+#
+#   tmux has-session -t notes 2>/dev/null ||
+#     tmux new-session -d -s notes -c "$HOME/obidian" nvim home.md
+#
+#   tmux has-session -t dotfiles 2>/dev/null ||
+#     tmux new-session -d -s dotfiles -c "$HOME/linux-dotfiles"
+#
+#   tmux has-session -t opencode 2>/dev/null ||
+#     tmux new-session -d -s opencode -c "$HOME"
+#
+#   tmux has-session -t yazi 2>/dev/null ||
+#     tmux new-session -d -s yazi -c "$HOME" yazi
+#
+#   tmux attach-session -t home
+# fi
+#
+# # Gebruik GCR als SSH-agent (GNOME Keyring)
+# export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 
-  tmux has-session -t btop 2>/dev/null ||
-    tmux new-session -d -s btop btop
-
-  tmux has-session -t spotify 2>/dev/null || {
-    tmux new-session -d -s spotify
-    tmux send-keys -t spotify "spotatui"
-  }
-
-  tmux has-session -t notes 2>/dev/null ||
-    tmux new-session -d -s notes -c "$HOME/obidian" nvim home.md
-
-  tmux has-session -t dotfiles 2>/dev/null ||
-    tmux new-session -d -s dotfiles -c "$HOME/linux-dotfiles"
-
-  tmux has-session -t opencode 2>/dev/null ||
-    tmux new-session -d -s opencode -c "$HOME"
-
-  tmux has-session -t yazi 2>/dev/null ||
-    tmux new-session -d -s yazi -c "$HOME" yazi
-
-  tmux attach-session -t home
+# Initialize and attach tmux
+if [[ -o interactive && -z "${TMUX:-}" && -t 0 ]]; then
+    if command -v tmux &>/dev/null; then
+        tmux-init home
+        tmux attach-session -t "=home"
+    fi
 fi
-
-# Gebruik GCR als SSH-agent (GNOME Keyring)
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
