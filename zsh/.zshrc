@@ -7,6 +7,9 @@
 export PATH="$PATH:/home/mrtn/.local/bin"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export PATH="$HOME/.config/emacs/bin:$PATH"
+export PATH="$HOME/.local/share/qmk/bin:$PATH"
+
+# eval "$(keychain --eval --quiet id_ed25519)"
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -22,7 +25,7 @@ source /usr/share/cachyos-zsh-config/cachyos-config.zsh
 
 cl() {
   clear
-  echo "(y)=Yazi (t)=Tmux (v)=nVim"
+  # echo "(y)=Yazi (t)=Tmux (v)=nVim"
   fastfetch --config ~/.config/fastfetch/config.jsonc
 }
 
@@ -60,7 +63,7 @@ alias rebar="pkill waybar && waybar & disown"
 
 alias yayupdate="yay -Sua"
 
-echo "(y)=Yazi (t)=Tmux (v)=nVim"
+# echo "(y)=Yazi (t)=Tmux (v)=nVim"
 fastfetch --config ~/.config/fastfetch/config.jsonc
 
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
@@ -89,3 +92,6 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
 
   tmux attach-session -t home
 fi
+
+# Gebruik GCR als SSH-agent (GNOME Keyring)
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
