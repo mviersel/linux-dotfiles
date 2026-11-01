@@ -21,8 +21,8 @@
         // ],
         "color": {
             "separator": "239",
-            // "keys": "#a9f7be", //color
-            "keys": "#79a617", //color
+            "keys": "#a9f7be", //color
+            // "keys": "#79a617", //color
             "output": "#aab2c0" //natural
         },
         "key": {
