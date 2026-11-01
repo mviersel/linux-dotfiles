@@ -1,144 +1,122 @@
 {
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-  "logo": {
-    "type": "small",
-    "source": "ubuntu",
-    "color": {
-      "1": "#B7D4B8",
-      "2": "#B7D4B8",
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+    "logo": {
+        // "type": "small",
+        "type": "auto",
+        "source": "arch",
+        "padding": {
+            "top": 1,
+            "left": 3,
+            "right": 5
+        },
+        "color": {
+            "1": "#aab2c0", //natural
+            "2": "#aab2c0" //natural
+        }
     },
-    "height": 15,
-    "width": 15,
-    "padding": {
-      "top": 5,
-      "left": 5,
-      "right": 5,
+    "display": {
+        "separator": "  ",
+        // "constants": [
+        //     "────────────────────"
+        // ],
+        "color": {
+            "separator": "239",
+            // "keys": "#a9f7be", //color
+            "keys": "#79a617", //color
+            "output": "#aab2c0" //natural
+        },
+        "key": {
+            "type": "both",
+            "width": 13
+        },
+        "size": {
+            "maxPrefix": "GB",
+            "ndigits": 1
+        }
     },
-  },
-  "modules": [
-    "break",
-    {
-      "type": "custom",
-      "format": "\u001b[90m┌──────────────────────Hardware──────────────────────┐",
-    },
-    {
-      "type": "host",
-      "key": "󰌢  PC",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "cpu",
-      "key": "│ ├󰻠 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "gpu",
-      "key": "│ ├󰍹 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "memory",
-      "key": "│ ├󰑭 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "disk",
-      "key": "└ └󰋊 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "custom",
-      "format": "\u001b[90m└────────────────────────────────────────────────────┘",
-    },
-    "break",
-    {
-      "type": "custom",
-      "format": "\u001b[90m┌──────────────────────Software──────────────────────┐",
-    },
-    {
-      "type": "os",
-      "key": "  OS",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "kernel",
-      "key": "│ ├󰌽 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "bios",
-      "key": "│ ├󰖡 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "packages",
-      "key": "│ ├󰏗 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "shell",
-      "key": "└ └󰞷 ",
-      "keyColor": "#B7D4B8",
-    },
-    "break",
-    {
-      "type": "de",
-      "key": "󰧨  DE",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "lm",
-      "key": "│ ├󰍁 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "wm",
-      "key": "│ ├󱂬 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "wmtheme",
-      "key": "│ ├󰉦 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "terminal",
-      "key": "└ └󰆍 ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "custom",
-      "format": "\u001b[90m└────────────────────────────────────────────────────┘",
-    },
-    "break",
-    {
-      "type": "custom",
-      "format": "\u001b[90m┌────────────────────Uptime / Age / DT────────────────────┐",
-    },
-    {
-      "type": "command",
-      "key": "  ›  OS Age  ",
-      "keyColor": "#B7D4B8",
-      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days",
-    },
-    {
-      "type": "uptime",
-      "key": "  ›  Uptime  ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "datetime",
-      "key": "  ›  DateTime  ",
-      "keyColor": "#B7D4B8",
-    },
-    {
-      "type": "custom",
-      "format": "\u001b[90m└─────────────────────────────────────────────────────────┘",
-    },
-    // {
-    //   "type": "colors",
-    //   "paddingLeft": 2,
-    //   "symbol": "circle",
-    // },
-  ],
+    "modules": [
+        "break",
+        "break",
+        "break",
+        // {
+        //     "type": "custom",
+        //     "format": "┌{$1} {#1}Hardware{#} {$1}┐"
+        // },
+        {
+            "type": "custom",
+            "format": "{#}┌───────────── Hardware ───────────────{#}"
+        },
+        // {
+        //     "type": "custom",
+        //     "format": "{#@239}------------------------------{#}"
+        // },
+        {
+            "type": "cpu",
+            "key": "cpu",
+            "format": "{name}"
+        },
+        {
+            "type": "gpu",
+            "key": "gpu",
+            "format": "{name}"
+        },
+        {
+            "type": "memory",
+            "key": "memory",
+            "format": "{used} / {total}"
+        },
+        {
+            "type": "disk",
+            "key": "disk",
+            "folders": "/",
+            "format": "{size-used} / {size-total}"
+        },
+        // {
+        //     "type": "custom",
+        //     "format": "├{$1} {#1}Software{#} {$1}┤"
+        // },
+        {
+            "type": "custom",
+            "format": "{#}├───────────── Software ───────────────{#}"
+        },
+        {
+            "type": "kernel",
+            "key": "kernel",
+            "format": "{release}"
+        },
+        {
+            "type": "uptime",
+            "key": "uptime"
+        },
+        {
+            "type": "packages",
+            "key": "packages",
+            "combined": true
+        },
+        {
+            "type": "shell",
+            "key": "shell"
+        },
+        {
+            "type": "wm",
+            "key": "wm"
+        },
+        {
+            "type": "terminal",
+            "key": "terminal"
+        },
+        {
+            "type": "localip",
+            "key": "local ip",
+            "format": "{ipv4}"
+        },
+        {
+            "type": "custom",
+            "format": "{#}└──────────────────────────────────────{#}"
+        }
+        // {
+        //     "type": "custom",
+        //     "format": "└{$1}──────────{$1}┘"
+        // }
+    ]
 }
