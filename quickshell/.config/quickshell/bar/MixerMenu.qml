@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtCore
 import Quickshell
 import Quickshell.Io
 
@@ -10,6 +11,22 @@ PopupWindow {
     required property var rootShell
     required property var anchorItem
     property var groups: []
+    property var knownStreamIds: ({})
+
+    Settings {
+        id: mixerSettings
+
+        category: "audioMixer"
+    }
+
+    function savedVolume(key: string): number {
+        return Number(mixerSettings.value(`${key}Volume`, -1));
+    }
+
+    function saveVolume(key: string, volume: real): void {
+        mixerSettings.setValue(`${key}Volume`, Math.round(volume));
+        mixerSettings.sync();
+    }
 
     function matchesGroup(input: var, key: string): bool {
         const properties = input.properties || {};
@@ -18,6 +35,11 @@ PopupWindow {
         if (key === "spotify") return /spotify/.test(name);
         if (key === "browser") return /(helium|zen|floorp|brave)/.test(name);
         if (key === "discord") return /discord/.test(name);
+        if (key === "other") {
+            return !matchesGroup(input, "spotify")
+                && !matchesGroup(input, "browser")
+                && !matchesGroup(input, "discord");
+        }
 
         return false;
     }
@@ -49,21 +71,49 @@ PopupWindow {
         if (!refreshProcess.running) refreshProcess.running = true;
     }
 
+    function restoreNewStreamVolumes(discoveredGroups: var): void {
+        const nextKnownIds = {};
+        const commands = [];
+
+        for (const group of discoveredGroups) {
+            const saved = savedVolume(group.key);
+            const knownIds = knownStreamIds[group.key] || [];
+            const newIds = group.ids.filter(id => !knownIds.includes(id));
+            nextKnownIds[group.key] = group.ids;
+
+            if (!group.available) continue;
+
+            if (saved < 0) {
+                saveVolume(group.key, group.volume);
+                continue;
+            }
+
+            const needsRestore = newIds.length || group.volume !== saved;
+            group.volume = saved;
+            if (needsRestore) {
+                commands.push(...group.ids.map(id => `pactl set-sink-input-volume ${id} ${saved}%`));
+            }
+        }
+
+        knownStreamIds = nextKnownIds;
+
+        if (!commands.length || restoreRunner.running) return;
+        restoreRunner.command = ["sh", "-c", commands.join(" && ")];
+        restoreRunner.running = true;
+    }
+
     function setGroupVolume(group: var, volume: real): void {
         const target = Math.max(0, Math.min(100, Math.round(volume)));
-        const command = group.key === "main"
-            ? `wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${target}%`
-            : group.ids.map(id => `pactl set-sink-input-volume ${id} ${target}%`).join(" && ");
+        const command = group.ids.map(id => `pactl set-sink-input-volume ${id} ${target}%`).join(" && ");
 
         if (!command) return;
+        saveVolume(group.key, target);
         commandRunner.command = ["sh", "-c", `${command}; sleep 0.08`];
         commandRunner.running = true;
     }
 
     function setGroupMuted(group: var, muted: bool): void {
-        const command = group.key === "main"
-            ? `wpctl set-mute @DEFAULT_AUDIO_SINK@ ${muted ? 1 : 0}`
-            : group.ids.map(id => `pactl set-sink-input-mute ${id} ${muted ? 1 : 0}`).join(" && ");
+        const command = group.ids.map(id => `pactl set-sink-input-mute ${id} ${muted ? 1 : 0}`).join(" && ");
 
         if (!command) return;
         commandRunner.command = ["sh", "-c", `${command}; sleep 0.08`];
@@ -91,10 +141,10 @@ PopupWindow {
         id: menuCard
 
         anchors.fill: parent
-        radius: 8
-        color: rootShell.bg
+        radius: 0
+        color: rootShell.menuBg
         border.width: 1
-        border.color: rootShell.tooltipBorder
+        border.color: rootShell.barBorder
         implicitHeight: menuColumn.implicitHeight + 16
 
         ColumnLayout {
@@ -120,10 +170,10 @@ PopupWindow {
 
                     Layout.fillWidth: true
                     implicitHeight: 46
-                    radius: 6
-                    color: rowMouse.containsMouse ? rootShell.bgHover : rootShell.bg
+                    radius: 0
+                    color: rowMouse.containsMouse ? rootShell.bgHover : rootShell.chipBg
                     border.width: 1
-                    border.color: rootShell.tooltipBorder
+                    border.color: rootShell.barBorder
                     opacity: modelData.available ? 1 : 0.5
 
                     RowLayout {
@@ -149,10 +199,10 @@ PopupWindow {
                             }
 
                             background: Rectangle {
-                                radius: 4
+                                radius: 0
                                 color: parent.down ? rootShell.accentSoft : parent.hovered ? rootShell.bgHover : "transparent"
                                 border.width: 1
-                                border.color: rootShell.tooltipBorder
+                                border.color: rootShell.barBorder
                             }
                         }
 
@@ -215,32 +265,19 @@ PopupWindow {
     Process {
         id: refreshProcess
 
-        command: ["sh", "-c", "printf '__MIXER_MAIN__ '; wpctl get-volume @DEFAULT_AUDIO_SINK@; printf '\\n__MIXER_INPUTS__\\n'; pactl -f json list sink-inputs"]
+        command: ["pactl", "-f", "json", "list", "sink-inputs"]
         stdout: StdioCollector {
             onStreamFinished: {
-                const marker = "__MIXER_INPUTS__\n";
-                const markerIndex = text.indexOf(marker);
-                if (markerIndex < 0) return;
-
-                const mainText = text.slice(0, markerIndex);
-                const inputText = text.slice(markerIndex + marker.length);
-                const mainMatch = mainText.match(/Volume:\s+([0-9.]+)/);
-
                 try {
-                    const inputs = JSON.parse(inputText);
-                    popup.groups = [
-                        {
-                            key: "main",
-                            label: "Main",
-                            ids: ["@DEFAULT_AUDIO_SINK@"],
-                            volume: mainMatch ? Math.round(parseFloat(mainMatch[1]) * 100) : 0,
-                            muted: mainText.includes("[MUTED]"),
-                            available: !!mainMatch
-                        },
+                    const inputs = JSON.parse(text);
+                    const discoveredGroups = [
+                        popup.makeGroup("other", "Other apps", inputs),
                         popup.makeGroup("spotify", "Spotify", inputs),
                         popup.makeGroup("browser", "Browsers", inputs),
                         popup.makeGroup("discord", "Discord", inputs)
                     ];
+                    popup.restoreNewStreamVolumes(discoveredGroups);
+                    popup.groups = discoveredGroups;
                 } catch (error) {
                     console.warn(`Could not read audio streams: ${error}`);
                 }
@@ -254,5 +291,9 @@ PopupWindow {
         onRunningChanged: {
             if (!running) popup.refresh();
         }
+    }
+
+    Process {
+        id: restoreRunner
     }
 }

@@ -38,9 +38,9 @@ Rectangle {
     }
 
     color: shell.bg
-    radius: 10
+    radius: 0
     border.width: 1
-    border.color: shell.tooltipBorder
+    border.color: shell.barBorder
 
     RowLayout {
         anchors.fill: parent
@@ -57,9 +57,10 @@ Rectangle {
 
                 Layout.alignment: Qt.AlignVCenter
                 text: "\uf303"
-                bgColor: shell.bgHover
+                bgColor: shell.chipBg
+                hoverColor: shell.bgHover
                 fgColor: shell.fg
-                borderColor: shell.tooltipBorder
+                borderColor: shell.barBorder
                 clickable: true
                 mouseArea.onClicked: powerMenu.visible = !powerMenu.visible
             }
@@ -74,10 +75,10 @@ Rectangle {
                     readonly property bool activeWorkspace: modelData.focused || modelData.active
 
                     visible: onCurrentMonitor && modelData.name !== "special:terminal"
-                    radius: 6
-                    color: activeWorkspace ? shell.accent : shell.bgHover
+                    radius: 0
+                    color: activeWorkspace ? shell.accent : workspaceMouse.containsMouse ? shell.bgHover : shell.chipBg
                     border.width: activeWorkspace ? 2 : 1
-                    border.color: activeWorkspace ? shell.fg : shell.tooltipBorder
+                    border.color: activeWorkspace ? shell.fg : shell.barBorder
                     implicitHeight: 24
                     implicitWidth: Math.max(workspaceLabel.implicitWidth + (activeWorkspace ? 24 : 16), implicitHeight)
 
@@ -93,7 +94,10 @@ Rectangle {
                     }
 
                     MouseArea {
+                        id: workspaceMouse
+
                         anchors.fill: parent
+                        hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: modelData.activate()
                     }
@@ -104,9 +108,9 @@ Rectangle {
                 Layout.alignment: Qt.AlignVCenter
                 Layout.maximumWidth: 320
                 text: shell.activeWindowTitle
-                bgColor: shell.bgHover
+                bgColor: shell.chipBg
                 fgColor: shell.fg
-                borderColor: shell.tooltipBorder
+                borderColor: shell.barBorder
             }
         }
 
@@ -123,17 +127,18 @@ Rectangle {
         StatusChip {
             Layout.alignment: Qt.AlignVCenter
             text: shell.cpuUsageText
-            bgColor: shell.bgHover
+            bgColor: shell.chipBg
             fgColor: shell.fg
-            borderColor: shell.tooltipBorder
+            borderColor: shell.barBorder
         }
 
         StatusChip {
             Layout.alignment: Qt.AlignVCenter
             text: shell.volumeText
-            bgColor: shell.bgHover
+            bgColor: shell.chipBg
+            hoverColor: shell.bgHover
             fgColor: shell.fg
-            borderColor: shell.tooltipBorder
+            borderColor: shell.barBorder
             clickable: true
             mouseArea.onClicked: volumeLauncher.startDetached()
             mouseArea.onWheel: wheel => {
@@ -147,9 +152,10 @@ Rectangle {
 
             Layout.alignment: Qt.AlignVCenter
             text: "\uf1de"
-            bgColor: shell.bgHover
+            bgColor: shell.chipBg
+            hoverColor: shell.bgHover
             fgColor: shell.fg
-            borderColor: shell.tooltipBorder
+            borderColor: shell.barBorder
             clickable: true
             mouseArea.onClicked: mixerMenu.visible = !mixerMenu.visible
         }
@@ -157,9 +163,10 @@ Rectangle {
         StatusChip {
             Layout.alignment: Qt.AlignVCenter
             text: "\uf293"
-            bgColor: shell.bgHover
+            bgColor: shell.chipBg
+            hoverColor: shell.bgHover
             fgColor: shell.fg
-            borderColor: shell.tooltipBorder
+            borderColor: shell.barBorder
             clickable: true
             mouseArea.onClicked: bluetoothLauncher.startDetached()
         }
@@ -167,18 +174,18 @@ Rectangle {
         StatusChip {
             Layout.alignment: Qt.AlignVCenter
             text: Qt.formatDateTime(shell.shellClock.date, "ddd dd MMM  hh:mm")
-            bgColor: shell.bgHover
+            bgColor: shell.chipBg
             fgColor: shell.fg
-            borderColor: shell.tooltipBorder
+            borderColor: shell.barBorder
         }
 
         StatusChip {
             Layout.alignment: Qt.AlignVCenter
             visible: batteryDevice.ready && batteryDevice.isLaptopBattery
             text: `BAT ${batteryLabel()}`
-            bgColor: shell.bgHover
+            bgColor: shell.chipBg
             fgColor: shell.fg
-            borderColor: shell.tooltipBorder
+            borderColor: shell.barBorder
         }
 
         RowLayout {
@@ -191,10 +198,10 @@ Rectangle {
                 delegate: Rectangle {
                     required property var modelData
 
-                    radius: 6
-                    color: trayMouseArea.containsMouse ? shell.bgHover : shell.bg
+                    radius: 0
+                    color: trayMouseArea.containsMouse ? shell.bgHover : shell.chipBg
                     border.width: 1
-                    border.color: shell.tooltipBorder
+                    border.color: shell.barBorder
                     implicitHeight: 24
                     implicitWidth: implicitHeight
                     visible: modelData.status !== 0

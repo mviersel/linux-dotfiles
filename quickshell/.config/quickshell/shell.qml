@@ -12,15 +12,20 @@ import "bar" as Bar
 ShellRoot {
     id: root
 
-    readonly property color bg: "#0b0b0a"
-    readonly property color bgHover: "#1d1c18"
+    // Layered translucent surfaces keep the wallpaper visible while retaining
+    // contrast for the compact bar labels and icons.
+    readonly property color bg: "#b80b0b0e"
+    readonly property color chipBg: "#c9141519"
+    readonly property color bgHover: "#df22242b"
+    readonly property color menuBg: "#e30d0e12"
+    readonly property color barBorder: "transparent"
     readonly property color fg: "#f4efe6"
     readonly property color fgMuted: "#a9a295"
     readonly property color accent: "#f7f0df"
     readonly property color accentSoft: "#22f7f0df"
     readonly property color accentLine: "#45f7f0df"
-    readonly property color tooltipBorder: "#24f4efe6"
-    readonly property color shadow: "#44000000"
+    readonly property color tooltipBorder: "#52f4efe6"
+    readonly property color shadow: "#70000000"
     readonly property alias shellClock: clock
     property string activeWindowTitle: "Desktop"
     property string cpuUsageText: "\uf2db --%"
@@ -125,7 +130,8 @@ ShellRoot {
     }
 
     Instantiator {
-        model: Quickshell.screens
+        // The temporary HDMI display should not reserve space or show a bar.
+        model: Quickshell.screens.filter(screen => !screen.name.toLowerCase().startsWith("hdmi"))
 
         delegate: PanelWindow {
             required property var modelData
@@ -133,7 +139,7 @@ ShellRoot {
             screen: modelData
             color: "transparent"
             aboveWindows: true
-            exclusiveZone: 42
+            exclusiveZone: 46
             implicitWidth: screen ? screen.width : 0
             implicitHeight: 42
             anchors {
@@ -208,7 +214,7 @@ ShellRoot {
                 anchors.topMargin: 32
                 width: 408
                 height: 156
-                radius: 6
+                radius: 0
                 color: root.bg
                 border.width: 1
                 border.color: root.tooltipBorder
@@ -226,7 +232,7 @@ ShellRoot {
                         Layout.preferredWidth: 112
                         Layout.preferredHeight: 112
                         Layout.alignment: Qt.AlignVCenter
-                        radius: 6
+                        radius: 0
                         color: root.bgHover
                         clip: true
 
@@ -314,7 +320,7 @@ ShellRoot {
                                 }
 
                                 background: Rectangle {
-                                    radius: 6
+                                    radius: 0
                                     color: parent.down ? root.accentSoft : parent.hovered ? root.bgHover : root.bg
                                     border.width: 1
                                     border.color: parent.down ? root.accentLine : root.tooltipBorder
@@ -339,7 +345,7 @@ ShellRoot {
                                 }
 
                                 background: Rectangle {
-                                    radius: 6
+                                    radius: 0
                                     color: parent.down ? root.bgHover : root.accentSoft
                                     border.width: 1
                                     border.color: root.accentLine
@@ -364,7 +370,7 @@ ShellRoot {
                                 }
 
                                 background: Rectangle {
-                                    radius: 6
+                                    radius: 0
                                     color: parent.down ? root.accentSoft : parent.hovered ? root.bgHover : root.bg
                                     border.width: 1
                                     border.color: parent.down ? root.accentLine : root.tooltipBorder

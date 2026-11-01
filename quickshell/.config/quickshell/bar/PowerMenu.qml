@@ -29,10 +29,10 @@ PopupWindow {
         id: menuCard
 
         anchors.fill: parent
-        radius: 8
-        color: rootShell.bg
+        radius: 0
+        color: rootShell.menuBg
         border.width: 1
-        border.color: rootShell.tooltipBorder
+        border.color: rootShell.barBorder
         implicitHeight: menuColumn.implicitHeight + 16
 
         ColumnLayout {
@@ -56,10 +56,10 @@ PopupWindow {
 
                     Layout.fillWidth: true
                     implicitHeight: 30
-                    radius: 6
-                    color: powerMouse.containsMouse ? rootShell.bgHover : rootShell.bg
+                    radius: 0
+                    color: powerMouse.containsMouse ? rootShell.bgHover : rootShell.chipBg
                     border.width: 1
-                    border.color: rootShell.tooltipBorder
+                    border.color: rootShell.barBorder
 
                     Label {
                         anchors.centerIn: parent

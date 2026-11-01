@@ -17,10 +17,10 @@ Rectangle {
         return `${title} - ${artist}`;
     }
 
-    radius: 6
-    color: rootShell.bgHover
+    radius: 0
+    color: rootShell.chipBg
     border.width: 1
-    border.color: rootShell.tooltipBorder
+    border.color: rootShell.barBorder
     implicitHeight: 24
     implicitWidth: Math.max(mediaControls.implicitWidth + 12, implicitHeight)
 
@@ -47,7 +47,7 @@ Rectangle {
         Rectangle {
             Layout.preferredWidth: 20
             Layout.preferredHeight: 20
-            radius: 5
+            radius: 0
             color: prevMouse.containsMouse ? rootShell.bgHover : "transparent"
             opacity: player && player.canGoPrevious ? 1 : 0.45
 
@@ -73,8 +73,8 @@ Rectangle {
         Rectangle {
             Layout.preferredWidth: 20
             Layout.preferredHeight: 20
-            radius: 5
-            color: toggleMouse.containsMouse ? rootShell.bgHover : rootShell.bg
+            radius: 0
+            color: toggleMouse.containsMouse ? rootShell.bgHover : rootShell.chipBg
             opacity: player && player.canTogglePlaying ? 1 : 0.45
 
             Label {
@@ -99,7 +99,7 @@ Rectangle {
         Rectangle {
             Layout.preferredWidth: 20
             Layout.preferredHeight: 20
-            radius: 5
+            radius: 0
             color: nextMouse.containsMouse ? rootShell.bgHover : "transparent"
             opacity: player && player.canGoNext ? 1 : 0.45
 
