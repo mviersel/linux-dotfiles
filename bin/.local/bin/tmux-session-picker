@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+session=$(
+    printf '%s\n' \
+        home dotfiles btop spotify notes opencode yazi |
+        fzf --reverse
+)
+
+# Stop als er niets geselecteerd is
+[[ -z "$session" ]] && exit 0
+
+# Maak de sessie aan indien nodig
+tmux-init "$session" || exit 1
+
+# Schakel over naar de geselecteerde sessie
+tmux switch-client -t "=$session"

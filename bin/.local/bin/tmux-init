@@ -68,6 +68,6 @@ tmux new-session -d -s "$session" -c "$directory"
 
 # Start het bijbehorende programma
 if [[ -n "$command_to_run" ]]; then
-    tmux send-keys -t "$session:0.0" \
+    tmux send-keys -t "$session:1.1" \
         "$command_to_run" Enter
 fi
