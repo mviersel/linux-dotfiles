@@ -30,8 +30,12 @@ bright() {
   ddcutil setvcp 12 "$ct1" --bus 6 --noverify
 
   # DP-3 → /dev/i2c-7
-  ddcutil setvcp 10 "$br2" --bus 7 --noverify
-  ddcutil setvcp 12 "$ct2" --bus 7 --noverify
+  if [[ -r /sys/class/drm/card1-DP-3/status ]] &&
+     [[ "$(< /sys/class/drm/card1-DP-3/status)" == "connected" ]]; then
+
+    ddcutil setvcp 10 "$br2" --bus 7 --noverify
+    ddcutil setvcp 12 "$ct2" --bus 7 --noverify
+  fi
 
   # HDMI-A-1 → /dev/i2c-4 (alleen indien aangesloten)
   if [[ -r /sys/class/drm/card1-HDMI-A-1/status ]] &&
