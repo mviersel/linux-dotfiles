@@ -76,9 +76,9 @@ Rectangle {
 
                     visible: onCurrentMonitor && modelData.name !== "special:terminal"
                     radius: 0
-                    color: activeWorkspace ? shell.accent : workspaceMouse.containsMouse ? shell.bgHover : shell.chipBg
-                    border.width: activeWorkspace ? 2 : 1
-                    border.color: activeWorkspace ? shell.fg : shell.barBorder
+                    color: activeWorkspace ? shell.fg : workspaceMouse.containsMouse ? shell.bgHover : shell.chipBg
+                    border.width: 0
+                    border.color: shell.barBorder
                     implicitHeight: 24
                     implicitWidth: Math.max(workspaceLabel.implicitWidth + (activeWorkspace ? 24 : 16), implicitHeight)
 
