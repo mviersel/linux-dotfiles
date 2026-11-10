@@ -12,14 +12,15 @@ import "bar" as Bar
 ShellRoot {
     id: root
 
-    // Layered translucent surfaces keep the wallpaper visible while retaining
-    // contrast for the compact bar labels and icons.
-    readonly property color bg: "#b80b0b0e"
+    // Hyprland blurs the translucent Quickshell layer, producing the frosted
+    // surface while retaining contrast for the compact bar labels and icons.
+    readonly property color bg: "#820b0b0e"
     readonly property color chipBg: "#c9141519"
     readonly property color bgHover: "#df22242b"
     readonly property color menuBg: "#e30d0e12"
     readonly property color barBorder: "transparent"
-    readonly property color fg: "#f4efe6"
+    // Softer than white to reduce OLED glare while retaining readable labels.
+    readonly property color fg: "#b8b5ad"
     readonly property color fgMuted: "#a9a295"
     readonly property color accent: "#f7f0df"
     readonly property color accentSoft: "#22f7f0df"
@@ -147,12 +148,6 @@ ShellRoot {
                 left: true
                 right: true
             }
-            margins {
-                left: 10
-                right: 10
-                top: 8
-            }
-
             Bar.TopBar {
                 anchors.fill: parent
                 shell: root
