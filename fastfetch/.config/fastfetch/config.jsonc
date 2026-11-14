@@ -6,8 +6,8 @@
         "source": "arch",
         "padding": {
             "top": 6,
-            "left": 3,
-            "right": 3
+            "left": 8,
+            "right": 8
         },
         "color": {
             "1": "#aab2c0", //natural
