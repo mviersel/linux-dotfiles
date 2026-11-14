@@ -41,8 +41,8 @@ bright() {
   if [[ -r /sys/class/drm/card1-HDMI-A-1/status ]] &&
      [[ "$(< /sys/class/drm/card1-HDMI-A-1/status)" == "connected" ]]; then
 
-    ddcutil setvcp 10 "$br1" --bus 4 --noverify
-    ddcutil setvcp 12 "$ct1" --bus 4 --noverify
+    ddcutil setvcp 10 "$br2" --bus 4 --noverify
+    ddcutil setvcp 12 "$ct2" --bus 4 --noverify
   fi
 }
 
