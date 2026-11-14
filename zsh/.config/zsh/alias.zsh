@@ -22,4 +22,5 @@ alias zshyt="nvim ~/.config/zsh/ytloader.zsh"
 
 alias hyprconf="nvim ~/.config/hypr/hyprland.lua"
 alias hyprpaper-reload="pkill hyprpaper; hyprpaper &"
+alias repipewire="systemctl --user restart wireplumber pipewire pipewire-pulse"
 
