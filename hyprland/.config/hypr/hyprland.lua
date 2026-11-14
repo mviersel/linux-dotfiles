@@ -48,13 +48,13 @@ hl.monitor({ -- 4K monitor horizontaal links naast main monitor
 hl.workspace_rule({ default_name = "󰊴", workspace = "1", monitor = "DP-2", default = true, persistent = true })
 hl.workspace_rule({ default_name = "", workspace = "2", monitor = "DP-2", persistent = true })
 hl.workspace_rule({ default_name = "󰌌", workspace = "3", monitor = "DP-2", persistent = true })
-hl.workspace_rule({ workspace = "4", monitor = "DP-2", persistent = false })
-hl.workspace_rule({ workspace = "5", monitor = "DP-2", persistent = false })
+hl.workspace_rule({ workspace = "4", monitor = "DP-2", persistent = true })
+hl.workspace_rule({ workspace = "5", monitor = "DP-2", persistent = true })
 
 -- DP-3 Workspaces
-hl.workspace_rule({ workspace = "6", monitor = "DP-3", persistent = false })
-hl.workspace_rule({ workspace = "7", monitor = "DP-3", persistent = false })
-hl.workspace_rule({ workspace = "8", monitor = "DP-3", persistent = false })
+hl.workspace_rule({ workspace = "6", monitor = "DP-3", persistent = true })
+hl.workspace_rule({ workspace = "7", monitor = "DP-3", persistent = true })
+hl.workspace_rule({ workspace = "8", monitor = "DP-3", persistent = true })
 hl.workspace_rule({ default_name = "", workspace = "9", monitor = "DP-3", persistent = true, default = true })
 hl.workspace_rule({ default_name = "󰄮", workspace = "10", monitor = "DP-3", persistent = true })
 
@@ -449,6 +449,14 @@ hl.window_rule({
 --     no_anim = true,
 -- })
 -- overlayLayerRule:set_enabled(false)
+
+-- Quickshell's translucent panels use the compositor blur for a frosted-glass
+-- appearance. This also covers its compact menus and media overlay.
+hl.layer_rule({
+	name = "frost-quickshell-surfaces",
+	match = { namespace = "^quickshell$" },
+	blur = true,
+})
 
 -- Hyprland-run windowrule
 hl.window_rule({

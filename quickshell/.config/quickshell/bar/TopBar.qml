@@ -16,7 +16,12 @@ Rectangle {
 
     readonly property var batteryDevice: UPower.displayDevice
     readonly property var barMonitor: Hyprland.monitorFor(barScreen)
+    readonly property var workspaceNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     property int pendingVolumeDelta: 0
+
+    function workspaceForId(workspaceId: int): var {
+        return Hyprland.workspaces.values.find(workspace => workspace.id === workspaceId) || null;
+    }
 
     function batteryLabel(): string {
         if (!batteryDevice.ready || !batteryDevice.isLaptopBattery) return "";
@@ -65,41 +70,44 @@ Rectangle {
                 mouseArea.onClicked: powerMenu.visible = !powerMenu.visible
             }
 
-            Repeater {
-                model: Hyprland.workspaces
+            RowLayout {
+                Layout.alignment: Qt.AlignVCenter
+                spacing: 1
 
-                delegate: Rectangle {
-                    required property var modelData
+                Repeater {
+                    model: barRoot.workspaceNumbers
 
-                    readonly property bool onCurrentMonitor: modelData.monitor === barRoot.barMonitor
-                    readonly property bool activeWorkspace: modelData.focused || modelData.active
+                    delegate: Rectangle {
+                        required property int modelData
 
-                    visible: onCurrentMonitor && modelData.name !== "special:terminal"
-                    radius: 0
-                    color: activeWorkspace ? shell.fg : workspaceMouse.containsMouse ? shell.bgHover : shell.chipBg
-                    border.width: 0
-                    border.color: shell.barBorder
-                    implicitHeight: 24
-                    implicitWidth: Math.max(workspaceLabel.implicitWidth + (activeWorkspace ? 24 : 16), implicitHeight)
+                        readonly property int workspaceNumber: modelData
+                        readonly property var workspace: barRoot.workspaceForId(workspaceNumber)
+                        readonly property bool activeWorkspace: workspace ? workspace.focused : false
 
-                    Label {
-                        id: workspaceLabel
+                        radius: 6
+                        color: workspaceMouse.containsMouse ? shell.bgHover : "transparent"
+                        border.width: 0
+                        border.color: shell.barBorder
+                        implicitHeight: 24
+                        implicitWidth: implicitHeight
 
-                        anchors.centerIn: parent
-                        // text: modelData.id > 0 ? `${modelData.id}` : modelData.name
-                        text: modelData.name
-                        color: activeWorkspace ? shell.bg : shell.fg
-                        font.pixelSize: activeWorkspace ? 12 : 11
-                        font.weight: activeWorkspace ? Font.Bold : Font.Medium
-                    }
+                        Label {
+                            id: workspaceLabel
 
-                    MouseArea {
-                        id: workspaceMouse
+                            anchors.centerIn: parent
+                            text: activeWorkspace ? "" : ""
+                            color: activeWorkspace ? shell.accent : shell.fgMuted
+                            font.pixelSize: 13
+                        }
 
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: modelData.activate()
+                        MouseArea {
+                            id: workspaceMouse
+
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: Hyprland.dispatch(`workspace ${workspaceNumber}`)
+                        }
                     }
                 }
             }
