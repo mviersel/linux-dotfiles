@@ -140,7 +140,7 @@ ShellRoot {
             screen: modelData
             color: "transparent"
             aboveWindows: true
-            exclusiveZone: 46
+            exclusiveZone: 47
             implicitWidth: screen ? screen.width : 0
             implicitHeight: 42
             anchors {
