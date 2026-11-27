@@ -23,6 +23,15 @@ Rectangle {
         return Hyprland.workspaces.values.find(workspace => workspace.id === workspaceId) || null;
     }
 
+    function switchWorkspace(workspaceId: int): void {
+        if (workspaceActivator.running) return;
+
+        // Hyprland 0.55+ evaluates IPC requests as Lua, so the legacy
+        // `workspace N` dispatcher string used by Hyprland.dispatch() fails.
+        workspaceActivator.command = ["hyprctl", "eval", `hl.dispatch(hl.dsp.focus({ workspace = ${workspaceId} }))`];
+        workspaceActivator.running = true;
+    }
+
     function batteryLabel(): string {
         if (!batteryDevice.ready || !batteryDevice.isLaptopBattery) return "";
 
@@ -40,6 +49,10 @@ Rectangle {
         const step = Math.max(1, Math.round(Math.abs(delta) / 120)) * 5;
         volumeAdjuster.command = ["sh", "-c", `wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${step}%${delta > 0 ? "+" : "-"} && wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ if ($3 == "[MUTED]") { muted=1 } vol=int($2 * 100 + 0.5) } END { if (muted) printf "\\uf026 muted"; else printf "\\uf028 %d%%", vol }'`];
         volumeAdjuster.running = true;
+    }
+
+    Process {
+        id: workspaceActivator
     }
 
     color: shell.bg
@@ -81,8 +94,7 @@ Rectangle {
                         required property int modelData
 
                         readonly property int workspaceNumber: modelData
-                        readonly property var workspace: barRoot.workspaceForId(workspaceNumber)
-                        readonly property bool activeWorkspace: workspace ? workspace.focused : false
+                        readonly property bool activeWorkspace: shell.focusedWorkspaceId === workspaceNumber
 
                         radius: 6
                         color: workspaceMouse.containsMouse ? shell.bgHover : "transparent"
@@ -106,7 +118,7 @@ Rectangle {
                             anchors.fill: parent
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: Hyprland.dispatch(`workspace ${workspaceNumber}`)
+                            onClicked: barRoot.switchWorkspace(workspaceNumber)
                         }
                     }
                 }

@@ -31,6 +31,7 @@ ShellRoot {
     property string activeWindowTitle: "Desktop"
     property string cpuUsageText: "\uf2db --%"
     property string volumeText: "\uf028 --%"
+    property int focusedWorkspaceId: -1
 
     SystemClock {
         id: clock
@@ -69,13 +70,35 @@ ShellRoot {
         }
     }
 
-    Component.onCompleted: activeWindowProcess.running = true
+    Component.onCompleted: {
+        activeWindowProcess.running = true;
+        activeWorkspaceProcess.running = true;
+    }
 
     Connections {
         target: Hyprland
 
-        function onRawEvent() {
+        function onRawEvent(event) {
             if (!activeWindowProcess.running) activeWindowProcess.running = true;
+
+            if ((event.name === "workspacev2" || event.name === "focusedmonv2") && !activeWorkspaceProcess.running) {
+                activeWorkspaceProcess.running = true;
+            }
+        }
+    }
+
+    Process {
+        id: activeWorkspaceProcess
+
+        command: ["hyprctl", "activeworkspace", "-j"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    root.focusedWorkspaceId = JSON.parse(text).id;
+                } catch (error) {
+                    root.focusedWorkspaceId = -1;
+                }
+            }
         }
     }
 
@@ -131,8 +154,8 @@ ShellRoot {
     }
 
     Instantiator {
-        // The temporary HDMI display should not reserve space or show a bar.
-        model: Quickshell.screens.filter(screen => !screen.name.toLowerCase().startsWith("hdmi"))
+        // Show the bar only on the HDMI display.
+        model: Quickshell.screens.filter(screen => screen.name.toLowerCase().startsWith("hdmi"))
 
         delegate: PanelWindow {
             required property var modelData
@@ -140,11 +163,11 @@ ShellRoot {
             screen: modelData
             color: "transparent"
             aboveWindows: true
-            exclusiveZone: 47
+            exclusiveZone: 42
             implicitWidth: screen ? screen.width : 0
             implicitHeight: 42
             anchors {
-                top: true
+                bottom: true
                 left: true
                 right: true
             }
